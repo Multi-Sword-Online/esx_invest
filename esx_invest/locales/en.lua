@@ -6,5 +6,6 @@ Locales['en'] = {
     ['added'] = "You've successfully invested more in your share",
     ['unexpected_error'] = "~r~An unexpected error has occurred",
     ['open_menu'] = "Press ~INPUT_PICKUP~ to open",
-    ['to_much'] = "~r~Your amount is to much, the limit is {limit}"
+	['too_much_stonks'] = "You cannot purchase additional stocks in the same company",
+    ['to_much'] = "~r~The stocks exchange is currently closed. Blame GME."
 }

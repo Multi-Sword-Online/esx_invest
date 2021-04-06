@@ -5,12 +5,9 @@ Config.Locale = 'en'
 
 -- Blips
 Config.BlipCoords = {
-    {x=-692.28, y=-587.52, z=31.55},
-    {x=243.27, y=-1072.81, z=29.29},
-    {x=-840.45, y=-334.11, z=38.68},
-    {x=-59.98, y=-790.45, z=44.23}
+    {x = -1247.729, y = -339.498, z = 37.088}
 }
-Config.BlipName = "Stock Exchange"
+Config.BlipName = "BAWSAQ Stock Exchange"
 Config.BlipID = 374
 Config.BlipActive = true
 
@@ -27,11 +24,11 @@ Config.Keys = {
 -- limit is in $ (0 = no limit)
 -- lost is in % (0 = no lost of money)
 Config.Stock = {
-    Minimum = -5,
-    Maximum = 5,
-    Time = 1,
-    Limit = 10000,
-    Lost = 10
+    Minimum = 0,
+    Maximum = 20,
+    Time = 20,
+    Limit = -1,
+	ZeroChance = 15
 }
 
 -- Documentation:
@@ -41,4 +38,4 @@ Config.Stock = {
 -- Lost is the % that will be lost when a stock is at a negative %
 
 -- Debug mode
-Config.Debug = false
+Config.Debug = true

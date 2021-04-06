@@ -22,11 +22,11 @@ ALTER TABLE `invest`
 CREATE TABLE `companies` (
   `name` varchar(50) COLLATE utf8mb4_bin NOT NULL,
   `label` varchar(50) COLLATE utf8mb4_bin NOT NULL,
-  `investRate` float DEFAULT NULL,
-  `rate` varchar(10) COLLATE utf8mb4_bin NOT NULL DEFAULT 'stale'
+  `price` float DEFAULT NULL,
+  `rate` float NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
-INSERT INTO `companies` (`name`, `label`, `investRate`, `rate`) VALUES
+INSERT INTO `companies` (`name`, `label`, `price`, `rate`) VALUES
 ('24/7', 'TNYFVN', NULL, 'stale'),
 ('Ammu-Nation', 'AMNA', NULL, 'stale'),
 ('Augury Insurance', 'AUGIN', NULL, 'stale'),

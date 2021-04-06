@@ -389,10 +389,15 @@ tbody tr:nth-child(even) {
     color: orange;
 }
 
-table#all tbody tr th:nth-child(2)::after,
+table#all tbody tr th:nth-child(2)::before,
+table#companies tbody tr th:nth-child(3)::before {
+    content: "$";
+    color: #53d0ff;
+}
+
 table#companies tbody tr th:nth-child(2)::after,
 table#sell tbody tr th:nth-child(3)::after {
-    content: "%";
+	content: "%";
     color: #53d0ff;
 }
 

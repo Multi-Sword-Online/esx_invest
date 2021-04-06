@@ -24,5 +24,5 @@ This will be one of the fastest ways to make money if you do it well. <br>
 7. Start investing.
 
 # Credits
-Original made by Tazio - 2019
+Original made by Tazio - 2019 <br>
 Rebuilt by MSOInfinite and DJ Sexypants for Multi-Sword Online - 2021

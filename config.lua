@@ -26,7 +26,8 @@ Config.Keys = {
 Config.Stock = {
     Time = 20,
     Limit = 0,
-	ZeroChance = 15
+	ZeroChance = 15,
+    Variance = 33
 }
 
 -- Documentation:

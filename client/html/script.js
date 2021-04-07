@@ -31,7 +31,7 @@ $(function () {
                     <tr data-label='${obj.label}'>
                         <th>${obj.name}</th>
                         <th><i class='fas ${icon}'></i> ${obj.rate}</th>
-						<th>${obj.stock}</th>
+						<th>${obj.price}</th>
                     </tr>`);
       }
     } else if (event.data.type == "all") {
@@ -49,7 +49,7 @@ $(function () {
         $("#all tbody").append(`
                     <tr>
                         <th>${obj.name}</th>
-                        <th>${obj.stock}</th>
+                        <th>${obj.price}</th>
                         <th>${sold}</th>
                     </tr>`);
       }
@@ -73,7 +73,7 @@ $(function () {
                         <th>${obj.name}</th>
                         <th>${obj.amount}</th>
                         <th><i class='fas ${icon}'></i>${
-          (obj.rate * obj.amount) - obj.totalInvestment
+          obj.rate * obj.amount - obj.totalInvestment
         }</th>
                     </tr>`);
       }

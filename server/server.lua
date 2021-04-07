@@ -173,10 +173,12 @@ AddEventHandler('onResourceStart', function(resourceName)
         local companies = MySQL.Sync.fetchAll("SELECT * FROM `companies`")
         for k, v in pairs(companies) do
 
-            v.rate = math.random() / 3;
+--[[             v.rate = math.random() / 3;
             if((math.random() * 100) < 50) then
                 v.rate = v.rate * -1;
-            end
+            end ]]
+
+            v.rate = gaussianRandom();
 
             if((math.random() * 100) < Config.Stock.ZeroChance) then
                 v.rate = 0;
@@ -205,12 +207,14 @@ AddEventHandler('onResourceStart', function(resourceName)
     local companies = MySQL.Sync.fetchAll("SELECT * FROM `companies`")
     for k, v in pairs(companies) do
         if(v.rate == nil) then
-            v.rate = math.random() / 3;
+--[[             v.rate = math.random() / 3;
             if((math.random() * 100) < 50) then
                 v.rate = v.rate * -1;
-            end
+            end ]]
 
-            if((math.random() * 100) < 25) then
+            v.rate = gaussianRandom();
+
+            if((math.random() * 100) < Config.Stock.ZeroChance) then
                 v.rate = 0;
             end
 
@@ -229,6 +233,11 @@ function format_int(number)
     local i, j, minus, int, fraction = tostring(number):find('([-]?)(%d+)([.]?%d*)')
     int = int:reverse():gsub("(%d%d%d)", "%1,")
     return minus .. int:reverse():gsub("^,", "") .. fraction
+end
+
+function gaussianRandom ()
+    return  (math.sqrt(-2 * Config.Stock.Variance * math.log(math.random())) *
+            math.cos(2 * math.pi * math.random()) + Config.Stock.Variance) - Config.Stock.Variance
 end
 
 -- v1.2 >

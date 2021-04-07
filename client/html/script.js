@@ -30,8 +30,10 @@ $(function () {
         $("#companies tbody").append(`
                     <tr data-label='${obj.label}'>
                         <th>${obj.name}</th>
-                        <th><i class='fas ${icon}'></i> ${obj.rate * 100}</th>
-						<th>${obj.stock.toFixed(2)}</th>
+                        <th><i class='fas ${icon}'></i> ${(
+          obj.rate * 100
+        ).toFixed(2)}</th>
+						<th>${obj.stock.toFixed(0)}</th>
                     </tr>`);
       }
     } else if (event.data.type == "all") {
@@ -50,7 +52,7 @@ $(function () {
                     <tr>
                         <th>${obj.name}</th>
                         <th>${obj.amount}</th>
-                        <th>${obj.price * obj.amount}</th>
+                        <th>${(obj.price * obj.amount).toFixed(0)}</th>
                         <th>${sold}</th>
                     </tr>`);
       }
@@ -73,9 +75,10 @@ $(function () {
                     <tr data-label='${obj.label}'>
                         <th>${obj.name}</th>
                         <th>${obj.amount}</th>
-                        <th><i class='fas ${icon}'></i>${
-          obj.rate * obj.amount - obj.totalInvestment
-        }</th>
+                        <th><i class='fas ${icon}'></i>${(
+          obj.rate * obj.amount -
+          obj.totalInvestment
+        ).toFixed(0)}</th>
                     </tr>`);
       }
     }

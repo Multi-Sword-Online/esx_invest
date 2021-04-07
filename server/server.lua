@@ -184,7 +184,7 @@ AddEventHandler('onResourceStart', function(resourceName)
             end
             
             --Update company share price
-            MySQL.Sync.execute("UPDATE `companies` SET price=ROUND(price*(1+@rate), 2), rate=@rate WHERE label=@label", {
+            MySQL.Sync.execute("UPDATE `companies` SET price=ROUND(price*(1+@rate), 2), rate=ROUND(@rate, 2) WHERE label=@label", {
                 ["@label"] = v.label,
                 ["@rate"] = v.rate
             })

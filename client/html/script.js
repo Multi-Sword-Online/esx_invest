@@ -62,10 +62,10 @@ $(function () {
       var array = event.data.cache;
       for (var e in array) {
         var obj = array[e];
-
-        if (obj.rate > 0) {
+        var roi = (obj.rate * obj.amount - obj.totalInvestment).toFixed(0);
+        if (roi > 0) {
           var icon = "fa-arrow-up";
-        } else if (obj.rate < 0) {
+        } else if (roi < 0) {
           var icon = "fa-arrow-down";
         } else {
           var icon = "fa-circle";
@@ -75,10 +75,7 @@ $(function () {
                     <tr data-label='${obj.label}'>
                         <th>${obj.name}</th>
                         <th>${obj.amount}</th>
-                        <th><i class='fas ${icon}'></i>${(
-          obj.rate * obj.amount -
-          obj.totalInvestment
-        ).toFixed(0)}</th>
+                        <th>${roi}<i class='fas ${icon}'></i></th>
                     </tr>`);
       }
     }

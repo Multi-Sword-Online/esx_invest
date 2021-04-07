@@ -188,7 +188,11 @@ AddEventHandler('onResourceStart', function(resourceName)
                 ["@label"] = v.label,
                 ["@rate"] = v.rate
             })
-            Cache[v.label] = {stock = price, rate = v.rate, label = v.label, name = v.name}
+
+            local inf = MySQL.Sync.fetchAll('SELECT * FROM `companies` WHERE WHERE label=@label', {["@label"] = v.label})
+            for q, w in pairs(inf) do inf = w end
+
+            Cache[v.label] = {stock = inf.price, rate = v.rate, label = v.label, name = v.name}
         end
         loopUpdate()
     end

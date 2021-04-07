@@ -27,7 +27,8 @@ Config.Stock = {
     Time = 20,
     Limit = 0,
 	ZeroChance = 15,
-    Variance = 33
+    Variance = 33,
+    Growth = 0.0005
 }
 
 -- Documentation:

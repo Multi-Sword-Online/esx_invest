@@ -62,7 +62,7 @@ $(function () {
       var array = event.data.cache;
       for (var e in array) {
         var obj = array[e];
-        var roi = (obj.rate * obj.amount - obj.totalInvestment).toFixed(0);
+        var roi = (obj.price * obj.amount - obj.totalInvestment).toFixed(0);
         if (roi > 0) {
           var icon = "fa-arrow-up";
         } else if (roi < 0) {

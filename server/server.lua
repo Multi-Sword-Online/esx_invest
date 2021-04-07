@@ -235,8 +235,8 @@ function format_int(number)
 end
 
 function gaussianRandom ()
-    return  ((math.sqrt(-2 * Config.Stock.Variance * math.log(math.random())) *
-            math.cos(2 * math.pi * math.random()) + Config.Stock.Variance) - Config.Stock.Variance) / 100
+    return  (((math.sqrt(-2 * Config.Stock.Variance * math.log(math.random())) *
+            math.cos(2 * math.pi * math.random()) + Config.Stock.Variance) - Config.Stock.Variance) / 100) + 0.0005
 end
 
 -- v1.2 >

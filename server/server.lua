@@ -94,7 +94,14 @@ AddEventHandler("invest:buy", function(job, amount, rate)
             print("[esx_invest] Purchasing additional stocks")
         end
 
-        MySQL.Sync.execute("UPDATE `invest` SET amount=amount+@num WHERE `identifier`=@id AND active=1 AND job=@job AND totalInvestment=totalInvestment+@num2", {["@id"] = xPlayer.getIdentifier(), ["@num"]=amount, ['@job'] = job, ["@num2"]=purchasePrice})
+        MySQL.Sync.execute("UPDATE `invest` SET amount=amount+@amount, rate=@rate WHERE `identifier`=@id AND active=1 AND job=@job AND totalInvestment=totalInvestment+@purchasePrice", 
+            {
+                ["@id"] = xPlayer.getIdentifier(), 
+                ["@amount"]=amount, 
+                ['@job'] = job, 
+                ["@purchasePrice"]=purchasePrice,
+                ["@rate"]=(((inf.amount * inf.rate) + (amount * rate)) / (inf.amount + amount)) --Average the rate
+            })
         
         TriggerClientEvent('esx:showNotification', _source, _U('added'))
     else
@@ -106,7 +113,7 @@ AddEventHandler("invest:buy", function(job, amount, rate)
             return TriggerClientEvent('esx:showNotification', _source, _U('unexpected_error'))
         end
 
-        MySQL.Sync.execute("INSERT INTO `invest` (identifier, job, amount, rate) VALUES (@id, @job, @amount, @rate, @totalInvestment)", {
+        MySQL.Sync.execute("INSERT INTO `invest` (identifier, job, amount, rate, totalInvestment) VALUES (@id, @job, @amount, @rate, @totalInvestment)", {
             ["@id"] = id,
             ["@job"] = job,
             ["@amount"] = amount,
@@ -145,9 +152,7 @@ AddEventHandler("invest:sell", function(job)
 	
     MySQL.Sync.execute("UPDATE `invest` SET active=0, sold=now(), soldAmount=@money, rate=@rate WHERE `id`=@id", {["@id"] = result.id, ["@money"] = addMoney, ["@rate"] =  sellRate})
 
-
-
-        xPlayer.addAccountMoney('bank', addMoney)
+    xPlayer.addAccountMoney('bank', addMoney)
     
     TriggerClientEvent('esx:showNotification', _source, _U('sold'))
     TriggerEvent(_source, "invest:balance")

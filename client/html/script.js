@@ -72,7 +72,9 @@ $(function () {
                     <tr data-label='${obj.label}'>
                         <th>${obj.name}</th>
                         <th>${obj.amount}</th>
-                        <th><i class='fas ${icon}'></i>${obj.rate}%</th>
+                        <th><i class='fas ${icon}'></i>${
+          obj.rate * obj.amount - obj.totalInvestment
+        }</th>
                     </tr>`);
       }
     }

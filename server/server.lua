@@ -72,7 +72,6 @@ AddEventHandler("invest:buy", function(job, amount, rate)
     local bank = xPlayer.getAccount('bank').money
     local id = xPlayer.getIdentifier()
     amount = tonumber(amount)
-	rate = tonumber(rate)
 	purchasePrice = amount * rate
 
     local inf = MySQL.Sync.fetchAll('SELECT * FROM `invest` WHERE `identifier`=@id AND active=1 AND job=@job LIMIT 1', {["@id"] = id, ['@job'] = job})
@@ -94,7 +93,7 @@ AddEventHandler("invest:buy", function(job, amount, rate)
             print("[esx_invest] Purchasing additional stocks")
         end
 
-        MySQL.Sync.execute("UPDATE `invest` SET amount=amount+@amount, rate=@rate WHERE `identifier`=@id AND active=1 AND job=@job AND totalInvestment=totalInvestment+@purchasePrice", 
+        MySQL.Sync.execute("UPDATE `invest` SET amount=amount+@amount, rate=@rate WHERE `identifier`=@id AND active=1 AND job=@job AND totalInvestment=ROUND(totalInvestment+@purchasePrice, 2)", 
             {
                 ["@id"] = xPlayer.getIdentifier(), 
                 ["@amount"]=amount, 
@@ -113,7 +112,7 @@ AddEventHandler("invest:buy", function(job, amount, rate)
             return TriggerClientEvent('esx:showNotification', _source, _U('unexpected_error'))
         end
 
-        MySQL.Sync.execute("INSERT INTO `invest` (identifier, job, amount, rate, totalInvestment) VALUES (@id, @job, @amount, @rate, @totalInvestment)", {
+        MySQL.Sync.execute("INSERT INTO `invest` (identifier, job, amount, rate, totalInvestment) VALUES (@id, @job, @amount, @rate, ROUND(@totalInvestment, 2))", {
             ["@id"] = id,
             ["@job"] = job,
             ["@amount"] = amount,
@@ -184,12 +183,12 @@ AddEventHandler('onResourceStart', function(resourceName)
             end
             
             --Update company share price
-            MySQL.Sync.execute("UPDATE `companies` SET price=ROUND(price*(1+@rate), 2), rate=ROUND(@rate, 2) WHERE label=@label", {
+            MySQL.Sync.execute("UPDATE `companies` SET price=ROUND(price*(1+@rate), 2), rate=ROUND(@rate, 4) WHERE label=@label", {
                 ["@label"] = v.label,
                 ["@rate"] = v.rate
             })
 
-            local inf = MySQL.Sync.fetchAll('SELECT * FROM `companies` WHERE WHERE label=@label', {["@label"] = v.label})
+            local inf = MySQL.Sync.fetchAll('SELECT * FROM `companies` WHERE label=@label', {["@label"] = v.label})
             for q, w in pairs(inf) do inf = w end
 
             Cache[v.label] = {stock = inf.price, rate = v.rate, label = v.label, name = v.name}
@@ -215,7 +214,7 @@ AddEventHandler('onResourceStart', function(resourceName)
                 v.rate = 0;
             end
 
-            MySQL.Sync.execute("UPDATE companies SET rate=ROUND(@rate, 2) WHERE label=@label", {
+            MySQL.Sync.execute("UPDATE companies SET rate=ROUND(@rate, 4) WHERE label=@label", {
                 ["@rate"] = v.rate,
                 ["@label"] = v.label
             })

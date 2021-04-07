@@ -93,7 +93,7 @@ AddEventHandler("invest:buy", function(job, amount, rate)
             print("[esx_invest] Purchasing additional stocks")
         end
 
-        MySQL.Sync.execute("UPDATE `invest` SET amount=amount+@amount, rate=@rate WHERE `identifier`=@id AND active=1 AND job=@job AND totalInvestment=ROUND(totalInvestment+@purchasePrice, 2)", 
+        MySQL.Sync.execute("UPDATE `invest` SET amount=amount+@amount, rate=@rate WHERE `identifier`=@id AND active=1 AND job=@job AND totalInvestment=ROUND(totalInvestment+@purchasePrice, 0)", 
             {
                 ["@id"] = xPlayer.getIdentifier(), 
                 ["@amount"]=amount, 
@@ -112,7 +112,7 @@ AddEventHandler("invest:buy", function(job, amount, rate)
             return TriggerClientEvent('esx:showNotification', _source, _U('unexpected_error'))
         end
 
-        MySQL.Sync.execute("INSERT INTO `invest` (identifier, job, amount, rate, totalInvestment) VALUES (@id, @job, @amount, @rate, ROUND(@totalInvestment, 2))", {
+        MySQL.Sync.execute("INSERT INTO `invest` (identifier, job, amount, rate, totalInvestment) VALUES (@id, @job, @amount, @rate, ROUND(@totalInvestment, 0))", {
             ["@id"] = id,
             ["@job"] = job,
             ["@amount"] = amount,

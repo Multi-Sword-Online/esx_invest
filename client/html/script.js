@@ -132,7 +132,7 @@ $("form .btn").click(function (e) {
 
     var label = $(trActive).data("label");
     var rate = $(trActive).children().last().text();
-    rate = parseFloat(rate.substr(1));
+    rate = parseFloat(rate);
 
     if (activeMenu == "sell") {
       $.post(

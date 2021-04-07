@@ -182,12 +182,6 @@ AddEventHandler('onResourceStart', function(resourceName)
             if((math.random() * 100) < Config.Stock.ZeroChance) then
                 v.rate = 0;
             end
-
-            --Update individual investments
-            MySQL.Sync.execute("UPDATE `invest` SET amount=ROUND(amount*(1+@rate), 2) WHERE active=1 AND job=@label", {
-                ["@label"] = v.label,
-                ["@rate"] = v.rate
-            })
             
             --Update company share price
             MySQL.Sync.execute("UPDATE `companies` SET price=ROUND(price*(1+@rate), 2), rate=@rate WHERE label=@label", {

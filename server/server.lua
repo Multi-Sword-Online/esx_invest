@@ -164,8 +164,6 @@ AddEventHandler('onResourceStart', function(resourceName)
     end
 
     function loopUpdate()
-        Citizen.Wait(60000*Config.Stock.Time)
-
         if Config.Debug then
             print("[esx_invest] Creating new investments")
         end
@@ -185,7 +183,7 @@ AddEventHandler('onResourceStart', function(resourceName)
             end
             
             --Update company share price
-            MySQL.Sync.execute("UPDATE `companies` SET price=ROUND(price*(1+@rate), 2), rate=ROUND(@rate, 4) WHERE label=@label", {
+            MySQL.Sync.execute("UPDATE `companies` SET price=ROUND(price*(1+@rate), 0), rate=ROUND(@rate, 4) WHERE label=@label", {
                 ["@label"] = v.label,
                 ["@rate"] = v.rate
             })
@@ -195,6 +193,7 @@ AddEventHandler('onResourceStart', function(resourceName)
 
             Cache[v.label] = {stock = inf.price, rate = v.rate, label = v.label, name = v.name}
         end
+        Citizen.Wait(60000*Config.Stock.Time)
         loopUpdate()
     end
 

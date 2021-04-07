@@ -179,7 +179,7 @@ AddEventHandler('onResourceStart', function(resourceName)
                 v.rate = v.rate * -1;
             end
 
-            if((math.random() * 100) < Config.ZeroChance) then
+            if((math.random() * 100) < Config.Stock.ZeroChance) then
                 v.rate = 0;
             end
 

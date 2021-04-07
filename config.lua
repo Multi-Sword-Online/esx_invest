@@ -24,10 +24,8 @@ Config.Keys = {
 -- limit is in $ (0 = no limit)
 -- lost is in % (0 = no lost of money)
 Config.Stock = {
-    Minimum = 0,
-    Maximum = 20,
     Time = 20,
-    Limit = -1,
+    Limit = 0,
 	ZeroChance = 15
 }
 

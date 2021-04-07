@@ -43,8 +43,7 @@ AddEventHandler("invest:all", function(special)
     local xPlayer = ESX.GetPlayerFromId(_source)
     local sql = 'SELECT `invest`.*, `companies`.`name`,`companies`.`price`,`companies`.`label` FROM `invest` '..
                 'INNER JOIN `companies` ON `invest`.`job` = `companies`.`label` '..
-                'WHERE `invest`.`identifier`=@id '..
-                'ORDER BY `companies`.`name`'
+                'WHERE `invest`.`identifier`=@id '
 
     if(special) then 
         sql = sql .. " AND `invest`.`active`=1"

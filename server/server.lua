@@ -191,7 +191,7 @@ AddEventHandler('onResourceStart', function(resourceName)
                 ["@rate"] = v.rate
             })
 
-            MySQL.Sync.execute("UPDATE companies SET price=100 WHERE price<20")
+            MySQL.Sync.execute("UPDATE companies SET price=100 WHERE price<100")
 
             local inf = MySQL.Sync.fetchAll('SELECT * FROM `companies` WHERE label=@label', {["@label"] = v.label})
             for q, w in pairs(inf) do inf = w end

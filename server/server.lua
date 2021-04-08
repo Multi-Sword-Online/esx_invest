@@ -185,10 +185,12 @@ AddEventHandler('onResourceStart', function(resourceName)
             end
             
             --Update company share price
-            MySQL.Sync.execute("UPDATE `companies` SET price=ROUND(price*(1+@rate), 0), rate=ROUND(@rate, 4) WHERE label=@label", {
+            MySQL.Sync.execute("UPDATE `companies` SET price=IF(@rate > 0, CEILING(price*(1+@rate)), FLOOR(price*(1+@rate))), rate=ROUND(@rate, 4) WHERE label=@label", {
                 ["@label"] = v.label,
                 ["@rate"] = v.rate
             })
+
+            MySQL.Sync.execute("UPDATE companies SET price=100 WHERE price<100")
 
             local inf = MySQL.Sync.fetchAll('SELECT * FROM `companies` WHERE label=@label', {["@label"] = v.label})
             for q, w in pairs(inf) do inf = w end

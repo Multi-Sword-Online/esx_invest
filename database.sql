@@ -1,16 +1,18 @@
 USE `essentialmode`;
 
 CREATE TABLE `invest` (
-  `id` int(11) NOT NULL,
-  `identifier` varchar(40) COLLATE utf8mb4_bin NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `identifier` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `amount` float NOT NULL,
   `rate` float NOT NULL,
-  `job` varchar(50) COLLATE utf8mb4_bin NOT NULL,
+  `job` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `sold` datetime DEFAULT NULL,
-  `soldAmount` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+  `soldAmount` float DEFAULT NULL,
+  `totalInvestment` int DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=677 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 ALTER TABLE `invest`
   ADD PRIMARY KEY (`id`);
@@ -20,10 +22,11 @@ ALTER TABLE `invest`
 
 
 CREATE TABLE `companies` (
-  `name` varchar(50) COLLATE utf8mb4_bin NOT NULL,
-  `label` varchar(50) COLLATE utf8mb4_bin NOT NULL,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
+  `label` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `price` float DEFAULT NULL,
-  `rate` float NOT NULL DEFAULT 0
+  `rate` float DEFAULT '0',
+  PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 INSERT INTO `companies` (`name`, `label`, `price`, `rate`) VALUES

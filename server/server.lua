@@ -81,6 +81,8 @@ AddEventHandler("invest:buy", function(job, amount, rate)
         return TriggerClientEvent('esx:showNotification', _source, _U('invalid_amount'))
     elseif(Config.Stock.Limit ~= 0 and amount > Config.Stock.Limit) then
         return TriggerClientEvent('esx:showNotification', _source, string.gsub(_U('to_much'), "{limit}", format_int(Config.Stock.Limit)))
+	elseif(type(inf) == "table" and inf.job ~= nil) then
+        return TriggerClientEvent('esx:showNotification', _source, _U('too_much_stonks'))
     else
         if(bank < purchasePrice) then
             return TriggerClientEvent('esx:showNotification', _source, _U('broke_amount'))
@@ -88,6 +90,8 @@ AddEventHandler("invest:buy", function(job, amount, rate)
         xPlayer.removeAccountMoney('bank', tonumber(purchasePrice))
     end
 
+
+	--[[ Old add investment logic. Currently broken.
     if(type(inf) == "table" and inf.job ~= nil) then
         if Config.Debug then
             print("[esx_invest] Purchasing additional stocks")
@@ -95,7 +99,7 @@ AddEventHandler("invest:buy", function(job, amount, rate)
 
         return TriggerClientEvent('esx:showNotification', _source, _U('unexpected_error'))
 
-        --[[ MySQL.Sync.execute("UPDATE `invest` SET amount=amount+@amount, rate=@rate WHERE `identifier`=@id AND active=1 AND job=@job AND totalInvestment=ROUND(totalInvestment+@purchasePrice, 0)", 
+        MySQL.Sync.execute("UPDATE `invest` SET amount=amount+@amount, rate=@rate WHERE `identifier`=@id AND active=1 AND job=@job AND totalInvestment=ROUND(totalInvestment+@purchasePrice, 0)", 
             {
                 ["@id"] = xPlayer.getIdentifier(), 
                 ["@amount"]=amount, 
@@ -104,8 +108,10 @@ AddEventHandler("invest:buy", function(job, amount, rate)
                 ["@rate"]=(((inf.amount * inf.rate) + (amount * rate)) / (inf.amount + amount)) --Average the rate
             })
         
-        TriggerClientEvent('esx:showNotification', _source, _U('added')) ]]
+        TriggerClientEvent('esx:showNotification', _source, _U('added')) 
     else
+	]]
+	
         if Config.Debug then
             print("[esx_invest] User new investment")
         end
@@ -123,7 +129,7 @@ AddEventHandler("invest:buy", function(job, amount, rate)
         })
         
         TriggerClientEvent('esx:showNotification', _source, _U('buy'))
-    end
+    --end
 
     TriggerEvent(_source, "invest:balance")
 end)

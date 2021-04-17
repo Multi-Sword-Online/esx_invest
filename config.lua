@@ -25,10 +25,10 @@ Config.Keys = {
 -- lost is in % (0 = no lost of money)
 Config.Stock = {
     Time = 20,
-    Limit = 0,
-	ZeroChance = 15,
-    Variance = 33,
-    Growth = 0.0005
+    Limit = 50000,
+	ZeroChance = 12,
+    Variance = 30,
+    Growth = 0
 }
 
 -- Documentation:
@@ -38,4 +38,4 @@ Config.Stock = {
 -- Lost is the % that will be lost when a stock is at a negative %
 
 -- Debug mode
-Config.Debug = true
+Config.Debug = false
